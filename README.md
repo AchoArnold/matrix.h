@@ -1,5 +1,5 @@
-    /********** matrix.h ***********/
-    A  basic matrix header file for C programming
+               /********** matrix.h ***********/
+       A  basic matirx header file for C programming
 
 Author:          Acho Arnold
 Email:            xift@users.sf.net
