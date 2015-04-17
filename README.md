@@ -2,6 +2,7 @@
        A  basic matirx header file for C programming
 
 Author:          Acho Arnold
+
 Email:           arnold@archlinux.info
 
 
