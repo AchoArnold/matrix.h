@@ -1,5 +1,8 @@
                /********** matrix.h ***********/
-       A  basic matirx header file for C programming
+       A  basic libray for matrix manipulation written in C
+       
+       
+Website          http://najela.github.io/matrix.h/
 
 Author:          Acho Arnold
 
