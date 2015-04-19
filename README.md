@@ -21,7 +21,6 @@ the documentation is available in the docs/ directory.
 If you think you've found a bug in  this header file, contact me with a bug
 report at arnold@archlinux.info or submit a new issue at 
 https://github.com/najela/matrix.h/issues
-https://sourceforge.net/projects/matrix-header/
 
 `matrix.h` is free software, released under the GNU GPL. Please see the
 COPYING file for more information. If you do modify this program,
