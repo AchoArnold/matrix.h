@@ -11,7 +11,7 @@ Email:           arnold@archlinux.info
 
 The C programming language includes a very limited standard library in
 comparison to other modern programming languages.  This is a collection
-some very basic matrix algorithms which can be used  used in C projects to
+some very basic matrix algorithms which can be used in C projects to
 manipulate matrices
 
 For more information on how to use this header file, please consult the
