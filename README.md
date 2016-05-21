@@ -1,8 +1,8 @@
                /********** matrix.h ***********/
        A  basic libray for matrix manipulation written in C
-       
-       
-Website          http://najela.github.io/matrix.h/
+
+
+Website          http://AchoArnold.github.io/matrix.h/
 
 Author:          Acho Arnold
 
@@ -16,11 +16,11 @@ manipulate matrices
 
 For more information on how to use this header file, please consult the
 documentation. If you got this file from a matrix package, then
-the documentation is available in the docs/ directory. 
+the documentation is available in the docs/ directory.
 
 If you think you've found a bug in  this header file, contact me with a bug
-report at arnold@archlinux.info or submit a new issue at 
-https://github.com/najela/matrix.h/issues
+report at arnold@archlinux.info or submit a new issue at
+https://github.com/AchoArnold/matrix.h/issues
 
 `matrix.h` is free software, released under the GNU GPL. Please see the
 COPYING file for more information. If you do modify this program,
