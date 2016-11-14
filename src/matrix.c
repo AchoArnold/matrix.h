@@ -118,7 +118,8 @@ void matrix_copy(Matrix *matrix1, Matrix *matrix2)
 
 Matrix *matrix_multiply(const Matrix *matrix1, const Matrix *matrix2)
 {
-	int i, j,k, sum;
+	int i, j,k;
+	float sum;
 	if (matrix1->col_size != matrix2->row_size)
 	  {
 	    terminate("ERROR: The number columns of matrix1  != number of rows in matrix2!");
