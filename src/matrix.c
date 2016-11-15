@@ -433,3 +433,20 @@ void terminate (char * string)
   fprintf(stdout,"The program is exiting now. . . .\n\n");
   exit(-1);
 }
+
+/*
+  This function calculates transpose of input matrix
+*/
+Matrix * matrix_transpose(Matrix *matrix)
+{
+	int i,j;
+	Matrix  *result = matrix_alloc (matrix->col_size, matrix->row_size); //Allocating space for the result matrix
+	for(i=0; i< matrix->row_size; i++)
+	{
+		for(j = 0;  j < matrix->col_size; j++)
+		{
+			result->matrix_entry[j][i] = matrix->matrix_entry[i][j];	      
+		}
+	}
+	return result;
+}
