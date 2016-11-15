@@ -271,3 +271,12 @@ void error_zeros( Matrix *matrix, int control_index);
  *  @param string     Message to displayed to stdout in case of an error 
  */
 void terminate( char *string);
+
+/*
+  This function calculates transpose of input matrix
+ * 
+ * @param matrix       	Pointer  the matrix to be transposed
+ * @return        		Pointer to the transposed matrix
+ *                                  
+ */
+Matrix * matrix_transpose(Matrix *matrix);
