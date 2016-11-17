@@ -18,6 +18,15 @@
 /* A sample program to test polynomial regression */
 
 #include "matrix.h"
+#include <time.h>
+
+
+float noise(float n)
+{
+	float r = (float)(rand() - (RAND_MAX/2));
+ 	float rf = r/RAND_MAX;    
+	return n * rf; 
+}
 
 int main()
 {
@@ -30,6 +39,9 @@ int main()
 	float b = 2.0;
 	float c = 3.0;
 	float d = 4.0;
+	float noiseLevel = 0.5;
+
+	srand(time(NULL));
 
 	Matrix *x = matrix_alloc(1,len);
 	Matrix *y = matrix_alloc(1,len);
@@ -43,39 +55,40 @@ int main()
 	matrix_print(x);
 
 	/* -------------------------------------------------------------*/		
-  	/* Test 1st order linear reression y = ax + b                   */
+  	/* Test 1st order linear regression y = ax + b                   */
 	/* -------------------------------------------------------------*/	
-  	printf("\n\tTest 1st order linear reression y = %6.2fx + %6.2f\n", a, b);
+  	printf("\n\tTest 1st order linear reression y = %6.7fx + %6.7f\n with noise %6.2f", a, b, noiseLevel);
   	for(i = 0; i < y->col_size; i++)
     {
-		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] + b;
+		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] + b + noise(noiseLevel);
     }
   	Matrix * result = matrix_polyfit(x, y, 1);
-  	printf("\n\tgives y^ = %6.2fx + %6.2f\n", result->matrix_entry[0][1], result->matrix_entry[0][0]);  	
+  	printf("\n\tgives y^ = %6.7fx + %6.7f\n", result->matrix_entry[0][1], result->matrix_entry[0][0]);  	
   	matrix_free(result);
 
 	/* -------------------------------------------------------------*/	
-  	/* Test 2nd order quadratic reression y = ax^2 + bx + c         */
+  	/* Test 2nd order quadratic regression y = ax^2 + bx + c         */
 	/* -------------------------------------------------------------*/	
-  	printf("\n\tTest 2nd order quadratic reression y = %6.2fx^2 + %6.2fx + %6.2f\n", a, b, c);
+  	printf("\n\tTest 2nd order quadratic reression y = %6.7fx^2 + %6.7fx + %6.7f\n with noise %6.2f", a, b, c, noiseLevel);
   	for(i = 0; i < y->col_size; i++)
     {
-		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] * x->matrix_entry[0][i] + b * x->matrix_entry[0][i] + c;
+		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] * x->matrix_entry[0][i] + b * x->matrix_entry[0][i] + c + noise(noiseLevel);
     }
   	result = matrix_polyfit(x, y, 2);	
-  	printf("\n\tgives y^ = %6.2fx^2 + %6.2fx + %6.2f\n", result->matrix_entry[0][2], result->matrix_entry[0][1], result->matrix_entry[0][0]);  	
+  	printf("\n\tgives y^ = %6.7fx^2 + %6.7fx + %6.7f\n", result->matrix_entry[0][2], result->matrix_entry[0][1], result->matrix_entry[0][0]);  	
   	matrix_free(result);
 
 	/* -------------------------------------------------------------*/	
-  	/* Test 3rd order polynomial reression y = ax^3 + bx^2 + cx + d */
+  	/* Test 3rd order polynomial regression y = ax^3 + bx^2 + cx + d */
 	/* -------------------------------------------------------------*/
-  	printf("\n\tTest 3rd order reression y = %6.2fx^3 + %6.2fx^2 + %6.2fx + %6.2f\n", a, b, c, d);
+  	printf("\n\tTest 3rd order reression y = %6.7fx^3 + %6.7fx^2 + %6.7fx + %6.7f\n with noise %6.2f", a, b, c, d, noiseLevel);
   	for(i = 0; i < y->col_size; i++)
     {
-		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] * x->matrix_entry[0][i] * x->matrix_entry[0][i] + b * x->matrix_entry[0][i] * x->matrix_entry[0][i] + c * x->matrix_entry[0][i] + d;
+		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] * x->matrix_entry[0][i] * x->matrix_entry[0][i] + b * x->matrix_entry[0][i] * x->matrix_entry[0][i] + \
+		c * x->matrix_entry[0][i] + d + noise(noiseLevel);
     }
   	result = matrix_polyfit(x, y, 3);	
-  	printf("\n\tgives y^ = %6.2fx^3 + %6.2fx^2 + %6.2fx + %6.2f\n", result->matrix_entry[0][3], result->matrix_entry[0][2], result->matrix_entry[0][1], result->matrix_entry[0][0]);  	  
+  	printf("\n\tgives y^ = %6.7fx^3 + %6.7fx^2 + %6.7fx + %6.7f\n", result->matrix_entry[0][3], result->matrix_entry[0][2], result->matrix_entry[0][1], result->matrix_entry[0][0]);  	  
   	matrix_free(result);
 
   	/* Freeing the alocated matrix spaces */
