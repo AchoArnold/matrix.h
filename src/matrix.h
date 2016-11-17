@@ -280,3 +280,15 @@ void terminate( char *string);
  *                                  
  */
 Matrix * matrix_transpose(Matrix *matrix);
+
+/*
+ * This function calculates polynomial that fits best input vectors y = f(x).
+ * It uses polynomal regression theory w = inv(XX'*XX)*XX'*y'.    
+ *
+ * @param x       	Pointer the input vector x 
+ * @param y       	Pointer the input vector y 
+ * @param order     Polynomal order eg. 1-liner function, 2-quadratic function etc.   
+ * @return          Pointer to the output vector with polynomal 
+ *					coefficiens y = w(n)x^n + ... + w(1)x + w(0) 
+ */
+Matrix * matrix_polyfit(Matrix *x, Matrix *y, int order);
