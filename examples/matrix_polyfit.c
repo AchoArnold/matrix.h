@@ -57,29 +57,26 @@ int main()
 	/* -------------------------------------------------------------*/	
   	/* Test 2nd order quadratic reression y = ax^2 + bx + c         */
 	/* -------------------------------------------------------------*/	
-	/*
   	printf("\n\tTest 2nd order quadratic reression y = %6.2fx^2 + %6.2fx + %6.2f\n", a, b, c);
   	for(i = 0; i < y->col_size; i++)
     {
-		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] * x->matrix_entry[0][i] + b * x->matrix_entry[0][i];
+		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] * x->matrix_entry[0][i] + b * x->matrix_entry[0][i] + c;
     }
-  	Matrix * result = matrix_polyfit(x, y, 2);	
+  	result = matrix_polyfit(x, y, 2);	
   	printf("\n\tgives y^ = %6.2fx^2 + %6.2fx + %6.2f\n", result->matrix_entry[0][2], result->matrix_entry[0][1], result->matrix_entry[0][0]);  	
   	matrix_free(result);
-	*/
+
 	/* -------------------------------------------------------------*/	
   	/* Test 3rd order polynomial reression y = ax^3 + bx^2 + cx + d */
 	/* -------------------------------------------------------------*/
-	/*
   	printf("\n\tTest 3rd order reression y = %6.2fx^3 + %6.2fx^2 + %6.2fx + %6.2f\n", a, b, c, d);
   	for(i = 0; i < y->col_size; i++)
     {
-		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] * x->matrix_entry[0][i] + b * x->matrix_entry[0][i] ;
+		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] * x->matrix_entry[0][i] * x->matrix_entry[0][i] + b * x->matrix_entry[0][i] * x->matrix_entry[0][i] + c * x->matrix_entry[0][i] + d;
     }
-  	Matrix * third = matrix_polyfit(x, y, 2);	
-  	printf("\n\tgives y^ = %6.2fx^3 + %6.2fx^2 + %6.2fx + %6.2f\n", linear->matrix_entry[0][3], linear->matrix_entry[0][2], linear->matrix_entry[0][1], linear->matrix_entry[0][0]);  	  
+  	result = matrix_polyfit(x, y, 3);	
+  	printf("\n\tgives y^ = %6.2fx^3 + %6.2fx^2 + %6.2fx + %6.2f\n", result->matrix_entry[0][3], result->matrix_entry[0][2], result->matrix_entry[0][1], result->matrix_entry[0][0]);  	  
   	matrix_free(result);
-	*/
 
   	/* Freeing the alocated matrix spaces */
   	matrix_free(x);
