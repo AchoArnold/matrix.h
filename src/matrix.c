@@ -27,7 +27,7 @@ void matrix_print (Matrix *matrix)
 		printf("\t\t");
 		for(j = 0; j < matrix->col_size;j++)
 		{
-			printf("%9.2f", matrix->matrix_entry[i][j]);
+			printf("%9.7f\t", matrix->matrix_entry[i][j]);
 		}
    	printf("\n");
 	}
@@ -354,6 +354,12 @@ void matrix_add(Matrix *result, Matrix *matrix1, Matrix *matrix2)
 void matrix_invert(Matrix *inverse_matrix)
 {
   int j,k;
+  	/* Checking input parameters */
+  	if(inverse_matrix->row_size != inverse_matrix->col_size)
+	{
+		terminate("ERROR: Matrix must be square for inversion");		
+	}
+
   /*Temporal matrix used in this function */
   Matrix *temp_matrix = matrix_alloc(inverse_matrix->row_size, inverse_matrix->col_size *2); 
 
@@ -362,9 +368,9 @@ void matrix_invert(Matrix *inverse_matrix)
  /* Adding an identity matrix at the end of the temporal matrix */
   for(j = 0; j< temp_matrix->row_size; j++)
     {
-      for(k = 3; k < temp_matrix->col_size; k++)
+      for(k = inverse_matrix->row_size; k < temp_matrix->col_size; k++)
       {
-	if( j+3  == k)
+	if( j+inverse_matrix->row_size  == k)
 	  {
 	    temp_matrix->matrix_entry[j][k] = 1; 
 	  }
@@ -380,9 +386,9 @@ void matrix_invert(Matrix *inverse_matrix)
   /* Copying the inverse matrix from the temp_matrix to the  invse_matrix */
   for(j = 0; j< temp_matrix->row_size; j++)
     {
-      for(k = 3; k < temp_matrix->col_size; k++)
+      for(k = inverse_matrix->row_size; k < temp_matrix->col_size; k++)
       {
-	inverse_matrix->matrix_entry[j][k-3] = temp_matrix->matrix_entry[j][k];
+	inverse_matrix->matrix_entry[j][k-inverse_matrix->row_size] = temp_matrix->matrix_entry[j][k];
       }
     }
   
