@@ -48,7 +48,7 @@ int main()
   	printf("\n\tTest 1st order linear reression y = %6.2fx + %6.2f\n", a, b);
   	for(i = 0; i < y->col_size; i++)
     {
-		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] + b * x->matrix_entry[0][i];
+		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] + b;
     }
   	Matrix * result = matrix_polyfit(x, y, 1);
   	printf("\n\tgives y^ = %6.2fx + %6.2f\n", result->matrix_entry[0][0], result->matrix_entry[0][1]);  	
