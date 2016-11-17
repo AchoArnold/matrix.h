@@ -482,38 +482,20 @@ Matrix * matrix_polyfit(Matrix *x, Matrix *y, int order)
 		}
 	}
 
-	matrix_print(XX);	
 	Matrix *XXT = matrix_transpose(XX);
-	matrix_print(XXT);
-	
 	Matrix *MUL = matrix_multiply(XXT,XX);
-	fprintf(stdout,"\nXXT XX\n");
-	matrix_print(MUL);
-
 	matrix_invert(MUL);
-	fprintf(stdout,"\ninv(XXT XX)\n");
-	matrix_print(MUL);
-
-	fprintf(stdout,"\ninv(XXT XX) XXT\n");
 	Matrix *MUL2 = matrix_multiply(MUL,XXT);
-	matrix_print(MUL2);
-	
 	Matrix *YYT = matrix_transpose(y);
-	fprintf(stdout,"\nYYT\n");
-	matrix_print(YYT);
-
-	fprintf(stdout,"\ninv(XXT XX) XXT YYT\n");
 	Matrix *RES = matrix_multiply(MUL2,YYT);
-	matrix_print(RES);
 	Matrix *W = matrix_transpose(RES); 	
-	matrix_print(W);
 
-	matrix_free(RES);
-	matrix_free(YYT);
-	matrix_free(MUL2);
-	matrix_free(MUL);
-	matrix_free(XXT);
 	matrix_free(XX);
+	matrix_free(XXT);
+	matrix_free(MUL);
+	matrix_free(MUL2);
+	matrix_free(YYT);
+	matrix_free(RES);
 
 	return W; 
 }

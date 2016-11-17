@@ -30,7 +30,7 @@ float noise(float n)
 
 int main()
 {
-	const int len = 10;
+	const int len = 11;
   	int i;
 	float begin = -5.0;
 	float end = 5.0;
@@ -52,7 +52,6 @@ int main()
     {
 		x->matrix_entry[0][i] = begin + diff * i;
     }
-	matrix_print(x);
 
 	/* -------------------------------------------------------------*/		
   	/* Test 1st order linear regression y = ax + b                   */
