@@ -51,7 +51,7 @@ int main()
 		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] + b;
     }
   	Matrix * result = matrix_polyfit(x, y, 1);
-  	printf("\n\tgives y^ = %6.2fx + %6.2f\n", result->matrix_entry[0][0], result->matrix_entry[0][1]);  	
+  	printf("\n\tgives y^ = %6.2fx + %6.2f\n", result->matrix_entry[0][1], result->matrix_entry[0][0]);  	
   	matrix_free(result);
 
 	/* -------------------------------------------------------------*/	
@@ -64,7 +64,7 @@ int main()
 		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] * x->matrix_entry[0][i] + b * x->matrix_entry[0][i];
     }
   	Matrix * result = matrix_polyfit(x, y, 2);	
-  	printf("\n\tgives y^ = %6.2fx^2 + %6.2fx + %6.2f\n", result->matrix_entry[0][0], result->matrix_entry[0][1], result->matrix_entry[0][2]);  	
+  	printf("\n\tgives y^ = %6.2fx^2 + %6.2fx + %6.2f\n", result->matrix_entry[0][2], result->matrix_entry[0][1], result->matrix_entry[0][0]);  	
   	matrix_free(result);
 	*/
 	/* -------------------------------------------------------------*/	
@@ -77,7 +77,7 @@ int main()
 		y->matrix_entry[0][i] = a * x->matrix_entry[0][i] * x->matrix_entry[0][i] + b * x->matrix_entry[0][i] ;
     }
   	Matrix * third = matrix_polyfit(x, y, 2);	
-  	printf("\n\tgives y^ = %6.2fx^3 + %6.2fx^2 + %6.2fx + %6.2f\n", linear->matrix_entry[0][0], linear->matrix_entry[0][1], linear->matrix_entry[0][2], linear->matrix_entry[0][3]);  	  
+  	printf("\n\tgives y^ = %6.2fx^3 + %6.2fx^2 + %6.2fx + %6.2f\n", linear->matrix_entry[0][3], linear->matrix_entry[0][2], linear->matrix_entry[0][1], linear->matrix_entry[0][0]);  	  
   	matrix_free(result);
 	*/
 

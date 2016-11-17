@@ -462,24 +462,30 @@ Matrix * matrix_transpose(Matrix *matrix)
 */
 Matrix * matrix_polyfit(Matrix *x, Matrix *y, int order)
 {
-	int j,k;
+	int i,j,k,m;
 	int cols = order + 1;
 	int rows = x->col_size;
+	float power;
+
 	if ( !matrix_equal_size(x, y) ){
 	    terminate("ERROR: The matrices x and y have different sizes");
 	}
 	
-	Matrix *XX = matrix_alloc(rows, cols);
+	Matrix *XX = matrix_alloc(rows, cols);	
 	for(j = 0; j < rows; j++){
-		XX->matrix_entry[j][0] = 1;
-		XX->matrix_entry[j][1] = x->matrix_entry[0][j];
-	//	XX->matrix_entry[j][2] = x[j]*x[j];
+		for(i = 0; i < order + 1; i++){
+			power = 1;
+			for(m = 0; m < i; m++){
+				power *= x->matrix_entry[0][j];							
+			}	
+			XX->matrix_entry[j][i] = power;				
+		}
 	}
+
 	matrix_print(XX);	
 	Matrix *XXT = matrix_transpose(XX);
 	matrix_print(XXT);
 	
-
 	Matrix *MUL = matrix_multiply(XXT,XX);
 	fprintf(stdout,"\nXXT XX\n");
 	matrix_print(MUL);
@@ -492,34 +498,22 @@ Matrix * matrix_polyfit(Matrix *x, Matrix *y, int order)
 	Matrix *MUL2 = matrix_multiply(MUL,XXT);
 	matrix_print(MUL2);
 	
-
-	Matrix *YY = matrix_alloc(rows, 1);
-	for(k = 0; k < rows; k++){
-		YY->matrix_entry[k][0] = y->matrix_entry[0][k];
-	}
+	Matrix *YYT = matrix_transpose(y);
 	fprintf(stdout,"\nYYT\n");
-	matrix_print(YY);
+	matrix_print(YYT);
 
 	fprintf(stdout,"\ninv(XXT XX) XXT YYT\n");
-	Matrix *RES = matrix_multiply(MUL2,YY);
-	matrix_print(RES);	
-	
-	
-	float a = RES->matrix_entry[1][0];
-	float b = RES->matrix_entry[0][0];
-	float c, d, qq;
-	printf("\n\tResult is a=%f, b=%f, c=%f, q=%f\n",a,b,c,qq);	
-	
-	Matrix *W = matrix_alloc(1, 2); 	
-	W->matrix_entry[0][0] = a;
-	W->matrix_entry[0][1] = b;
+	Matrix *RES = matrix_multiply(MUL2,YYT);
+	matrix_print(RES);
+	Matrix *W = matrix_transpose(RES); 	
+	matrix_print(W);
 
-	//matrix_free(RES);
-	//matrix_free(YY);
+	matrix_free(RES);
+	matrix_free(YYT);
 	matrix_free(MUL2);
 	matrix_free(MUL);
 	matrix_free(XXT);
-	//matrix_free(XX);
+	matrix_free(XX);
 
 	return W; 
 }
