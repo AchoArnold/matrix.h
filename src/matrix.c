@@ -27,7 +27,7 @@ void matrix_print (Matrix *matrix)
 		printf("\t\t");
 		for(j = 0; j < matrix->col_size;j++)
 		{
-			printf("%9.2f", matrix->matrix_entry[i][j]);
+			printf("%9.7f\t", matrix->matrix_entry[i][j]);
 		}
    	printf("\n");
 	}
@@ -354,6 +354,12 @@ void matrix_add(Matrix *result, Matrix *matrix1, Matrix *matrix2)
 void matrix_invert(Matrix *inverse_matrix)
 {
   int j,k;
+  	/* Checking input parameters */
+  	if(inverse_matrix->row_size != inverse_matrix->col_size)
+	{
+		terminate("ERROR: Matrix must be square for inversion");		
+	}
+
   /*Temporal matrix used in this function */
   Matrix *temp_matrix = matrix_alloc(inverse_matrix->row_size, inverse_matrix->col_size *2); 
 
@@ -362,9 +368,9 @@ void matrix_invert(Matrix *inverse_matrix)
  /* Adding an identity matrix at the end of the temporal matrix */
   for(j = 0; j< temp_matrix->row_size; j++)
     {
-      for(k = 3; k < temp_matrix->col_size; k++)
+      for(k = inverse_matrix->row_size; k < temp_matrix->col_size; k++)
       {
-	if( j+3  == k)
+	if( j+inverse_matrix->row_size  == k)
 	  {
 	    temp_matrix->matrix_entry[j][k] = 1; 
 	  }
@@ -380,9 +386,9 @@ void matrix_invert(Matrix *inverse_matrix)
   /* Copying the inverse matrix from the temp_matrix to the  invse_matrix */
   for(j = 0; j< temp_matrix->row_size; j++)
     {
-      for(k = 3; k < temp_matrix->col_size; k++)
+      for(k = inverse_matrix->row_size; k < temp_matrix->col_size; k++)
       {
-	inverse_matrix->matrix_entry[j][k-3] = temp_matrix->matrix_entry[j][k];
+	inverse_matrix->matrix_entry[j][k-inverse_matrix->row_size] = temp_matrix->matrix_entry[j][k];
       }
     }
   
@@ -449,4 +455,47 @@ Matrix * matrix_transpose(Matrix *matrix)
 		}
 	}
 	return result;
+}
+
+/*
+	This function calculates polynomial that fits best input vector y = f(x).
+*/
+Matrix * matrix_polyfit(Matrix *x, Matrix *y, int order)
+{
+	int i,j,k,m;
+	int cols = order + 1;
+	int rows = x->col_size;
+	float power;
+
+	if ( !matrix_equal_size(x, y) ){
+	    terminate("ERROR: The matrices x and y have different sizes");
+	}
+	
+	Matrix *XX = matrix_alloc(rows, cols);	
+	for(j = 0; j < rows; j++){
+		for(i = 0; i < order + 1; i++){
+			power = 1;
+			for(m = 0; m < i; m++){
+				power *= x->matrix_entry[0][j];							
+			}	
+			XX->matrix_entry[j][i] = power;				
+		}
+	}
+
+	Matrix *XXT = matrix_transpose(XX);
+	Matrix *MUL = matrix_multiply(XXT,XX);
+	matrix_invert(MUL);
+	Matrix *MUL2 = matrix_multiply(MUL,XXT);
+	Matrix *YYT = matrix_transpose(y);
+	Matrix *RES = matrix_multiply(MUL2,YYT);
+	Matrix *W = matrix_transpose(RES); 	
+
+	matrix_free(XX);
+	matrix_free(XXT);
+	matrix_free(MUL);
+	matrix_free(MUL2);
+	matrix_free(YYT);
+	matrix_free(RES);
+
+	return W; 
 }
